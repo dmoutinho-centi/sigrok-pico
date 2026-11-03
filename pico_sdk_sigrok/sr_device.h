@@ -27,7 +27,7 @@
 // Note: In the wireless versions, GPIO23-25 control the wifi chip, 23 and 24
 // aren't available in the PICO, and 25 controls the LED. So while the LED is
 // lost, there is no change in available channels for sampling.
-#define PICO_MODE 2 // 0 is baseline, 1 is digital 26, 2 is digital 32
+#define PICO_MODE 1 // 0 is baseline, 1 is digital 26, 2 is digital 32
 // WARNING: USE PIN_TEST_MODE with extreme caution!!!!
 // If set, treat the inputs (A&D) to be outputs so that the device can drive
 // values for turn-on testing.  Enabling this allows all modes to be tested
@@ -45,23 +45,23 @@
 // Note: GPIO_D_MASK is relative to the pins of the chip, whereas the
 // MEM_D_MASK is relative to the value written in memory, those may be different
 // depending on how data is shifted from the GPIOs into memory.
-#define GPIO_D_MASK 0x7FFFFC // Mask of bits for digital inputs
+#define GPIO_D_MASK  0x7FFFFC // Mask of bits for digital inputs
 #define UART_EN 1
 // Since this mode has all digital inputs contigous, the upper mask isn't
 // needed.
-#define MEM_D_MASK_L 0x007FFFFF // lower mask of bits for digital inputs
-#define MEM_D_MASK_U 0x0        // upper mask of bits for digital inputs
-#define PIN_TEST_MASK 0x1C7FFFFE
+#define MEM_D_MASK_L    0x007FFFFF // lower mask of bits for digital inputs
+#define MEM_D_MASK_U    0x0        // upper mask of bits for digital inputs
+#define PIN_TEST_MASK   0x1C7FFFFE
 #define HAS_LED 1
 #elif PICO_MODE == 1 // Digital 26
 #define DIG_26_MODE 1
 #define NUM_A_CHAN 0            // number of analog channels
-#define NUM_D_CHAN 26           // number of digital channels
-#define GPIO_D_MASK 0x1C7FFFFF  // Mask of bits for digital inputs
-#define MEM_D_MASK_L 0x007FFFFF // lower mask of bits for digital inputs
-#define MEM_D_MASK_U 0x1C000000 // upper mask of bits for digital inputs
-#define UART_EN 0
-#define PIN_TEST_MASK 0x1C7FFFFF
+#define NUM_D_CHAN 11           // number of digital channels
+#define GPIO_D_MASK     0x001E01FC  // Mask of bits for digital inputs
+#define MEM_D_MASK_L    0x000001FC // lower mask of bits for digital inputs
+#define MEM_D_MASK_U    0x001E0000 // upper mask of bits for digital inputs
+#define UART_EN 1
+#define PIN_TEST_MASK   0x001E01FC
 #define HAS_LED 1
 // Note: The RP2040 only has GPIOs 0-29.
 // The RP2350 has GPIOs 30 and above, but only in the QFN-80 packeage.

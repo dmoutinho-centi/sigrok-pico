@@ -362,7 +362,7 @@ uint32_t get_cval(uint8_t *dbuf) {
 // Mask off undefined channels
 #ifdef DIG_26_MODE
     // push out the gap of 3 channels
-    cval = (cval & MEM_D_MASK_L) | ((cval & MEM_D_MASK_U) >> 3);
+    cval = (cval & MEM_D_MASK_L) | ((cval & MEM_D_MASK_U) >> 8);
 #elif BASE_MODE
     // mask off upper unused
     cval = cval & MEM_D_MASK_L;
@@ -474,7 +474,7 @@ void __attribute__((noinline)) send_slices_4B(sr_device_t *d, uint8_t *dbuf) {
     rxbufdidx += 4;
 // Mask invalid bits, remove 29-31, and shift down 26-28 over 23-25
 #ifdef DIG_26_MODE
-    cval = (cval & MEM_D_MASK_L) | ((cval & MEM_D_MASK_U) >> 3);
+    cval = (cval & MEM_D_MASK_L) | ((cval & MEM_D_MASK_U) >> 8);
 #elif BASE_MODE
     // mask off upper unused
     cval = cval & MEM_D_MASK_L;
@@ -1222,7 +1222,7 @@ int main() {
         // with autopush enabled.
         pio_sm_config c = pio_get_default_sm_config();
 #ifdef DIG_26_MODE
-        sm_config_set_in_pins(&c, 0); // start at GPIO0 since uart isn't used
+        sm_config_set_in_pins(&c, 2); // start at GPIO2 (keep 0 and 1 for uart)
 #elif DIG_32_MODE
         sm_config_set_in_pins(&c, 0); // start at GPIO0 since uart isn't used
 #else
