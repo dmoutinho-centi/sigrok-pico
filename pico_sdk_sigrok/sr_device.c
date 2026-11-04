@@ -279,6 +279,8 @@ int process_char(sr_device_t *d, char charin) {
         // in dig_32_mode D0-D31 are GP0..GP31
 #ifdef BASE_MODE // D0-20 are GP2..GP22
         tmpint2 = tmpint + 2;
+#elif DIG_11_MODE // D0-20 are GP2..GP12
+        tmpint2 = tmpint + 2;
 #elif DIG_26_MODE // D0-D22,D23-D25 are GP0..GP22,GP26..GP28
         tmpint2 = (tmpint <= 22) ? tmpint : tmpint + 3;
 #else             // DIG_32_MODE and all else are direct mapped.

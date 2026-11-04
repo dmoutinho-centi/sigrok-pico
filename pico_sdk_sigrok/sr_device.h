@@ -27,7 +27,7 @@
 // Note: In the wireless versions, GPIO23-25 control the wifi chip, 23 and 24
 // aren't available in the PICO, and 25 controls the LED. So while the LED is
 // lost, there is no change in available channels for sampling.
-#define PICO_MODE 2 // 0 is baseline, 1 is digital 26, 2 is digital 32
+#define PICO_MODE 3 // 0 is baseline, 1 is digital 26, 2 is digital 32, 3 is digital 11
 // WARNING: USE PIN_TEST_MODE with extreme caution!!!!
 // If set, treat the inputs (A&D) to be outputs so that the device can drive
 // values for turn-on testing.  Enabling this allows all modes to be tested
@@ -37,6 +37,7 @@
 #undef BASE_MODE
 #undef DIG_26_MODE
 #undef DIG_32_MODE
+#undef DIG_11_MODE
 #undef HAS_LED
 #if PICO_MODE == 0 // Baseline
 #define BASE_MODE 1
@@ -76,6 +77,16 @@
 #define MEM_D_MASK_U 0x00000000 // upper mask of bits for digital inputs
 #define UART_EN 0
 #define PIN_TEST_MASK 0xFFFFFFFF
+#elif PICO_MODE == 3 // Digital 11
+#define DIG_11_MODE     1
+#define NUM_A_CHAN      0            // number of analog channels
+#define NUM_D_CHAN      11           // number of digital channels
+#define GPIO_D_MASK     0x00001FFC  // Mask of bits for digital inputs
+#define MEM_D_MASK_L    0x00001FFC // lower mask of bits for digital inputs
+#define MEM_D_MASK_U    0x00000000 // upper mask of bits for digital inputs
+#define UART_EN 1
+#define PIN_TEST_MASK 0x00001FFC
+#define HAS_LED 1
 #endif
 // These two enable debug print outs of D4 generation, D4_DBG2 is higher
 // verbosity #define D4_DBG 1 #define D4_DBG2 2
